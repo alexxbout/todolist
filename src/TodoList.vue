@@ -1,0 +1,182 @@
+<template>
+    <div ref="containerRef" class="flex flex-col w-screen h-screen p-10 overflow-x-hidden transition-all duration-300 bg-white gap-y-10 scroll-smooth">
+        <div class="flex flex-col w-full border-b gap-y-2">
+            <div class="flex items-center justify-center gap-x-5 w-max">
+                <span class="text-5xl font-bold text-black">Tâches</span>
+
+                <button @click="add" class="flex items-center justify-center duration-300 bg-blue-600 rounded-xl hover:bg-blue-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-white w-9 h-9" viewBox="0 0 16 16">
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                    </svg>
+                </button>
+            </div>
+
+            <span class="text-gray-400">{{ completedTodos + " terminée" + (completedTodos > 1 ? "s" : "") }}</span>
+        </div>
+
+        <div class="flex flex-col gap-y-4">
+            <!-- Il est important de placer le v-for à l'extérieur du composant Todo-->
+            <div v-for="todo in list" :key="todo.id">
+                <Todo @@update="handleUpdate" @@remove="handleRemove" :data="todo" />
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { computed, ref, watch } from "vue";
+import Todo from "./components/Todo.vue";
+import { ITodo } from "./types/ITodo";
+
+const completedTodos = computed(() => list.value.filter((todo) => todo.completed).length);
+
+const containerRef = ref<HTMLDivElement>();
+
+const list = ref<ITodo[]>([
+    {
+        title: "Apprendre Vue 3",
+        completed: false,
+        endDate: new Date(),
+        id: 1,
+    },
+    {
+        title: "Apprendre Tailwind CSS",
+        completed: false,
+        endDate: new Date(),
+        id: 2,
+    },
+    {
+        title: "Apprendre TypeScript",
+        completed: false,
+        endDate: new Date(),
+        id: 3,
+    },
+    {
+        title: "Apprendre GraphQL",
+        completed: false,
+        endDate: new Date(),
+        id: 4,
+    },
+    {
+        title: "Apprendre React",
+        completed: false,
+        endDate: new Date(),
+        id: 5,
+    },
+    {
+        title: "Apprendre Svelte",
+        completed: false,
+        endDate: new Date(),
+        id: 6,
+    },
+    {
+        title: "Apprendre Angular",
+        completed: false,
+        endDate: new Date(),
+        id: 7,
+    },
+    {
+        title: "Apprendre Node.js",
+        completed: false,
+        endDate: new Date(),
+        id: 8,
+    },
+    {
+        title: "Apprendre Express.js",
+        completed: false,
+        endDate: new Date(),
+        id: 9,
+    },
+    {
+        title: "Apprendre Nest.js",
+        completed: false,
+        endDate: new Date(),
+        id: 10,
+    },
+    {
+        title: "Apprendre MongoDB",
+        completed: false,
+        endDate: new Date(),
+        id: 11,
+    },
+    {
+        title: "Apprendre MySQL",
+        completed: false,
+        endDate: new Date(),
+        id: 12,
+    },
+    {
+        title: "Apprendre PostgreSQL",
+        completed: false,
+        endDate: new Date(),
+        id: 13,
+    },
+    {
+        title: "Apprendre Redis",
+        completed: false,
+        endDate: new Date(),
+        id: 14,
+    },
+    {
+        title: "Apprendre Docker",
+        completed: false,
+        endDate: new Date(),
+        id: 15,
+    },
+    {
+        title: "Apprendre Kubernetes",
+        completed: false,
+        endDate: new Date(),
+        id: 16,
+    },
+    {
+        title: "Apprendre AWS",
+        completed: false,
+        endDate: new Date(),
+        id: 17,
+    },
+]);
+
+const getLastId = (): number => {
+    return list.value.length == 0 ? 0 : list.value[list.value.length - 1].id;
+};
+
+const add = () => {
+    if (containerRef.value) {
+        list.value.push({
+            title: "Nouvelle tâche",
+            completed: false,
+            endDate: new Date(),
+            id: getLastId() + 1,
+        });
+
+        setTimeout(() => {
+            if (containerRef.value) containerRef.value.scrollTop = containerRef.value.scrollHeight;
+        }, 1);
+    }
+};
+
+const handleRemove = (id: number) => {
+    list.value = list.value.filter((todo) => todo.id != id);
+};
+
+const handleUpdate = (id: number, title: string, date: string, completed: boolean) => {
+    list.value = list.value.map((todo) => {
+        if (todo.id == id) {
+            todo.title = title;
+            todo.endDate = new Date(date);
+            todo.completed = completed;
+        }
+
+        return todo;
+    });
+};
+
+watch(
+    () => list.value,
+    () => {
+        console.log("List updated");
+    },
+    { deep: true }
+);
+</script>
