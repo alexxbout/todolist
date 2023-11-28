@@ -27,7 +27,7 @@
             <span class="text-gray-400">{{ completedTodos.length + " terminée" + (completedTodos.length > 1 ? "s" : "") + " / " + remainingTodos.length + " restante" + (remainingTodos.length > 1 ? "s" : "") }}</span>
         </div>
 
-        <div class="flex flex-col gap-y-4">
+        <div class="flex flex-col">
             <!-- Il est important de placer le v-for à l'extérieur du composant Todo-->
             <div v-for="todo in filteredTodos" :key="todo.id">
                 <Todo @@update="handleUpdate" @@remove="handleRemove" :data="todo" />
