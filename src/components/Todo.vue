@@ -1,5 +1,5 @@
 <template>
-    <div @click="handleClick" class="flex items-center w-full p-2 transition-colors border-b rounded-md cursor-pointer h-max gap-x-5" :class="isEditing ? 'bg-gray-100' : ''">
+    <div @click="handleClick" class="flex items-center w-full p-2 transition-colors border-b cursor-pointer h-max gap-x-5" :class="isEditing ? 'bg-gray-100 rounded-md' : ''">
         <!-- Checkbox -->
         <label :for="uniqueId" class="relative flex items-center justify-center">
             <input @change="toggle" v-model="completed" :name="uniqueId" :id="uniqueId" type="checkbox" :class="props.data.completed ? 'border-blue-600' : 'border-gray-400'" class="peer aspect-square w-5 text-blue-600 bg-tr border-[1px] appearance-none focus:ring-blue-500 rounded-full focus:ring-2" />
@@ -9,7 +9,7 @@
 
         <!-- Title and date -->
         <div class="flex flex-col w-full gap-y-2 max-w-[100%]">
-            <input @blur="isEditing = false" @change="updateData" ref="titleRef" v-model="title" type="text" class="px-1 text-xl font-medium bg-transparent outline-none appearance-none max-w-screen w-60" :class="props.data.completed ? 'line-through text-gray-400' : isEditing ? 'text-blue-600' : 'text-black'" :disabled="!isEditing" />
+            <input @blur="isEditing = false" @change="updateData" ref="titleRef" v-model="title" type="text" class="w-full text-xl font-medium bg-transparent outline-none appearance-none max-w-screen" :class="props.data.completed ? 'line-through text-gray-400' : isEditing ? 'text-blue-600' : 'text-black'" :disabled="!isEditing" />
 
             <input ref="dateRef" v-model="date" type="datetime-local" class="text-gray-400 bg-transparent outline-none appearance-none w-44" />
         </div>

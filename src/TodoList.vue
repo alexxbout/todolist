@@ -37,7 +37,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import axios from "axios";
+import { computed, onMounted, ref, watch } from "vue";
 import Todo from "./components/Todo.vue";
 import { ITodo } from "./types/ITodo";
 
@@ -48,110 +49,20 @@ const containerRef = ref<HTMLDivElement>();
 
 const filter = ref<number>(0);
 
-const list = ref<ITodo[]>([
-    {
-        title: "Apprendre Vue 3",
-        completed: false,
-        endDate: new Date(),
-        id: 1,
-    },
-    {
-        title: "Apprendre Tailwind CSS",
-        completed: false,
-        endDate: new Date(),
-        id: 2,
-    },
-    {
-        title: "Apprendre TypeScript",
-        completed: false,
-        endDate: new Date(),
-        id: 3,
-    },
-    {
-        title: "Apprendre GraphQL",
-        completed: false,
-        endDate: new Date(),
-        id: 4,
-    },
-    {
-        title: "Apprendre React",
-        completed: false,
-        endDate: new Date(),
-        id: 5,
-    },
-    {
-        title: "Apprendre Svelte",
-        completed: false,
-        endDate: new Date(),
-        id: 6,
-    },
-    {
-        title: "Apprendre Angular",
-        completed: false,
-        endDate: new Date(),
-        id: 7,
-    },
-    {
-        title: "Apprendre Node.js",
-        completed: false,
-        endDate: new Date(),
-        id: 8,
-    },
-    {
-        title: "Apprendre Express.js",
-        completed: false,
-        endDate: new Date(),
-        id: 9,
-    },
-    {
-        title: "Apprendre Nest.js",
-        completed: false,
-        endDate: new Date(),
-        id: 10,
-    },
-    {
-        title: "Apprendre MongoDB",
-        completed: false,
-        endDate: new Date(),
-        id: 11,
-    },
-    {
-        title: "Apprendre MySQL",
-        completed: false,
-        endDate: new Date(),
-        id: 12,
-    },
-    {
-        title: "Apprendre PostgreSQL",
-        completed: false,
-        endDate: new Date(),
-        id: 13,
-    },
-    {
-        title: "Apprendre Redis",
-        completed: false,
-        endDate: new Date(),
-        id: 14,
-    },
-    {
-        title: "Apprendre Docker",
-        completed: false,
-        endDate: new Date(),
-        id: 15,
-    },
-    {
-        title: "Apprendre Kubernetes",
-        completed: false,
-        endDate: new Date(),
-        id: 16,
-    },
-    {
-        title: "Apprendre AWS",
-        completed: false,
-        endDate: new Date(),
-        id: 17,
-    },
-]);
+const list = ref<ITodo[]>([]);
+
+onMounted(async () => {
+    await axios.get<{todos: {todo: string, completed: boolean}[]}>("https://dummyjson.com/todos").then((res) => {
+        res.data.todos.forEach((todo) => {
+            list.value.push({
+                title: todo.todo,
+                completed: todo.completed,
+                endDate: new Date(),
+                id: getLastId() + 1,
+            });
+        });
+    });
+})
 
 const filteredTodos = computed<ITodo[]>(() => {
     return filter.value == 0 ? list.value : filter.value == 1 ? completedTodos.value : remainingTodos.value;
