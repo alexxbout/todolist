@@ -52,7 +52,7 @@ const filter = ref<number>(0);
 const list = ref<ITodo[]>([]);
 
 onMounted(async () => {
-    await axios.get<{todos: {todo: string, completed: boolean}[]}>("https://dummyjson.com/todos").then((res) => {
+    await axios.get<{ todos: { todo: string; completed: boolean }[] }>("https://dummyjson.com/todos").then((res) => {
         res.data.todos.forEach((todo) => {
             list.value.push({
                 title: todo.todo,
@@ -62,7 +62,7 @@ onMounted(async () => {
             });
         });
     });
-})
+});
 
 const filteredTodos = computed<ITodo[]>(() => {
     return filter.value == 0 ? list.value : filter.value == 1 ? completedTodos.value : remainingTodos.value;

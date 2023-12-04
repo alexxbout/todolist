@@ -107,15 +107,4 @@ const updateData = () => {
         emits("@update", props.data.id, title.value, date.value, completed.value);
     }
 };
-
-// watch(
-//     () => completed.value,
-//     (value) => {
-//         // Disable the title and date if the todo is completed
-//         if (titleRef.value && dateRef.value) {
-//             titleRef.value.disabled = value;
-//             dateRef.value.disabled = value;
-//         }
-//     }
-// );
 </script>

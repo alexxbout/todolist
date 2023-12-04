@@ -1,18 +1,25 @@
-# Vue 3 + TypeScript + Vite
+# Projet TodoList en Vue.js
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Introduction
 
-## Recommended IDE Setup
+Ce projet TodoList en Vue.js a été réalisé avec succès en utilisant la bibliothèque officielle de Vue.js et l'API Composition. Contrairement aux indications du TP, nous avons choisi d'exploiter l'approche moderne de la composition pour une meilleure maintenabilité et lisibilité du code.
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Déploiement
 
-## Type Support For `.vue` Imports in TS
+Le projet a été déployé sur deux plates-formes :
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+1. **GitHub Personnel:** Vous pouvez accéder à la version en ligne ici [lien](https://alexxbout.github.io/todolist/).
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+2. **VM de l'ISTIC:** Dans le cadre du projet de déploiement, le projet est également accessible sur les VM de l'ISTIC à l'adresse suivante : [http://noamalexandre.istic.univ-rennes1.fr/](http://noamalexandre.istic.univ-rennes1.fr/).
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## Technologies utilisées
+
+- **Vue.js et API Composition:** La partie front-end du projet a été développée en utilisant la bibliothèque officielle Vue.js, mettant en œuvre l'API Composition pour une structuration efficace du code.
+
+- **Axios pour la consommation de l'API REST:** Les informations de la TodoList sont chargées dynamiquement à partir d'une API REST en utilisant la bibliothèque Axios.
+
+- **TailwindCSS:** Le Framework TailwindCSS a été choisi pour styliser l'interface utilisateur, offrant une approche utilitaire pour la conception de l'interface.
+
+## Respect des bonnes pratiques
+
+Nous avons pris soin de respecter les bonnes pratiques de développement, en particulier en ce qui concerne les hooks du cycle de vie de Vue.js. Lors du passage des propriétés (props), nous avons adopté le principe d'événement pour garantir que les propriétés ne sont pas modifiées directement depuis le parent.
